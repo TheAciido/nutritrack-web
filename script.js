@@ -1,4 +1,3 @@
-// --- ESTADO GLOBAL ---
 let perfil = JSON.parse(localStorage.getItem('nt_perfil')) || null;
 let historial = JSON.parse(localStorage.getItem('nt_historial')) || [];
 let xp = parseInt(localStorage.getItem('nt_xp')) || 0;
@@ -7,7 +6,8 @@ let exerciseIndex = 0;
 const rutinas = {
   perder: ["Burpees", "Zancadas Salto", "Mountain Climbers", "Flexiones Explosivas"],
   mantener: ["Dominadas", "Sentadilla Copa", "Press Militar", "Plancha Lateral"],
-  ganar: ["Sentadilla Barra", "Press de Banca", "Peso Muerto", "Remo con Barra"]
+  ganar: ["Sentadilla Barra", "Press de Banca", "Peso Muerto", "Remo con Barra"],
+  recomposicion: ["Press Banca", "Sentadilla Pesada", "Dominadas", "Flexiones"]
 };
 
 const alimentos = [
@@ -17,7 +17,6 @@ const alimentos = [
   { n: "Tortilla Proteica", c: 320, p: 25, e: "🍳" }
 ];
 
-// --- INICIO ---
 window.onload = () => {
   if (perfil) {
     document.getElementById('onboarding').style.display = 'none';
@@ -35,8 +34,10 @@ function configurarTodo() {
 
   let tmb = (10 * peso) + (6.25 * 175) - (5 * edad) + 5;
   let meta = Math.round(tmb * actividad);
+
   if(objetivo === 'perder') meta -= 400;
   if(objetivo === 'ganar') meta += 400;
+  if(objetivo === 'recomposicion') meta = meta; // Mantenimiento
 
   perfil = { meta, objetivo, peso };
   localStorage.setItem('nt_perfil', JSON.stringify(perfil));
@@ -48,7 +49,6 @@ function configurarTodo() {
   }, 500);
 }
 
-// --- GIMNASIO ---
 function registrarEntreno() {
   const w = document.getElementById('lift-weight').value;
   const r = document.getElementById('lift-reps').value;
@@ -70,7 +70,6 @@ function registrarEntreno() {
   document.getElementById('lift-reps').value = "";
 }
 
-// --- IA ---
 document.getElementById('btn-ia').onclick = function() {
   const btn = this;
   const iaCard = document.getElementById('ia-card');
@@ -109,7 +108,6 @@ document.getElementById('btn-ia').onclick = function() {
   }, 30);
 };
 
-// --- CORE ---
 function actualizarTodo() {
   const meta = perfil.meta;
   const calTotal = historial.filter(h => h.type === 'FOOD').reduce((acc, curr) => acc + curr.cal, 0);
@@ -130,25 +128,19 @@ function actualizarTodo() {
 function renderHistorial() {
   const list = document.getElementById('master-list');
   list.innerHTML = historial.map(h => `
-    <div class="bg-slate-900/40 border border-slate-800 p-5 rounded-2xl flex justify-between items-center card-anim">
+    <div class="bg-slate-900/40 border border-slate-800 p-5 rounded-2xl flex justify-between items-center card-anim mb-4">
       <div class="flex items-center gap-4">
         <span class="text-2xl">${h.emoji}</span>
-        <div>
-          <p class="font-bold text-sm text-white">${h.name}</p>
-          <p class="text-[9px] text-gray-500 uppercase font-black">${h.type} • RECIENTE</p>
-        </div>
+        <div><p class="font-bold text-sm text-white">${h.name}</p><p class="text-[9px] text-gray-500 uppercase font-black">${h.type}</p></div>
       </div>
-      <div class="text-right">
-        <p class="font-black ${h.color} text-lg">${h.val}</p>
-        <p class="text-[9px] text-gray-400 font-bold italic">${h.sub}</p>
-      </div>
+      <div class="text-right"><p class="font-black ${h.color} text-lg">${h.val}</p><p class="text-[9px] text-gray-400 font-bold">${h.sub}</p></div>
     </div>
   `).join('');
 }
 
 function exportarReporte() {
   const element = document.getElementById('capture-area');
-  const opt = { filename: 'Reporte_NutriTrack.pdf', image: {type:'jpeg', quality:0.98}, html2canvas: {scale:2, backgroundColor: '#0b0f1a'}, jsPDF: {unit:'in', format:'letter', orientation:'portrait'} };
+  const opt = { filename: 'NutriTrack.pdf', image: {type:'jpeg', quality:0.98}, html2canvas: {scale:2, backgroundColor: '#0b0f1a'}, jsPDF: {unit:'in', format:'letter', orientation:'portrait'} };
   html2pdf().set(opt).from(element).save();
 }
 

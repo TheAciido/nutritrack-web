@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>Untitled</title>
-    <link rel="stylesheet" href="./style.css">
-
-  </head>
-    
-  <body>
-  <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <div class="min-h-screen bg-[#0b0f1a] text-white font-sans pb-20 overflow-x-hidden">
@@ -29,8 +18,9 @@
           <option value="1.55">Activo (3-5 días gym)</option>
           <option value="1.725">Atleta (6-7 días gym)</option>
         </select>
-        <select id="user-goal" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-2xl text-white outline-none focus:ring-2 focus:ring-cyan-500">
+        <select id="user-goal" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-2xl text-white outline-none focus:ring-2 focus:ring-cyan-500 appearance-none">
           <option value="perder">Bajar Grasa (Definición)</option>
+          <option value="recomposicion">Recomposición Corporal (Grasa x Músculo)</option>
           <option value="mantener">Mantenerse Fit</option>
           <option value="ganar">Ganar Músculo (Volumen)</option>
         </select>
@@ -76,7 +66,7 @@
       <div class="bg-gradient-to-r from-blue-900/20 to-slate-900 border border-blue-500/20 p-8 rounded-[32px] backdrop-blur-xl">
         <div class="flex flex-col md:flex-row justify-between gap-6">
           <div class="md:w-1/2">
-            <h3 id="routine-name" class="text-2xl font-black mb-1">Cargando Rutina...</h3>
+            <h3 id="routine-name" class="text-2xl font-black mb-1 text-white">Cargando Rutina...</h3>
             <p class="text-xs text-gray-500 uppercase font-bold mb-6 italic text-blue-400">Objetivo: <span id="goal-text">--</span></p>
             <div class="bg-slate-950/50 p-4 rounded-2xl border border-slate-800 mb-6">
               <span class="text-[10px] text-gray-500 block mb-1 font-bold uppercase">Ejercicio Actual</span>
@@ -124,8 +114,7 @@
 
     <section>
       <h3 class="text-gray-500 uppercase text-xs font-bold tracking-widest mb-6 px-4 italic">Log de Actividad de Hoy</h3>
-      <div class="space-y-4" id="master-list">
-        </div>
+      <div class="space-y-4" id="master-list"></div>
     </section>
 
   </main>
@@ -136,10 +125,4 @@
       <span class="text-xl">📄</span>
     </button>
   </div>
-
 </div>
-    <script  src="./script.js"></script>
-
-  </body>
-  
-</html>

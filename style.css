@@ -1,44 +1,13 @@
-:root {
-  --cyan: #22d3ee;
-}
-
+:root { --cyan: #22d3ee; }
 body {
   background-color: #0b0f1a;
-  background-image: 
-    radial-gradient(circle at top right, rgba(34, 211, 238, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.08) 0%, transparent 40%);
+  background-image: radial-gradient(circle at top right, rgba(34, 211, 238, 0.08) 0%, transparent 40%);
   background-attachment: fixed;
 }
-
 .scanner-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: var(--cyan);
-  box-shadow: 0 0 20px var(--cyan), 0 0 40px var(--cyan);
-  z-index: 50;
-  animation: scan 1.5s ease-in-out infinite;
+  position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--cyan);
+  box-shadow: 0 0 20px var(--cyan); z-index: 50; animation: scan 1.5s ease-in-out infinite;
 }
-
-@keyframes scan {
-  0% { top: 0%; opacity: 0; }
-  50% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-
-.card-anim {
-  animation: slideUp 0.6s cubic-bezier(0.2, 1, 0.2, 1) forwards;
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+@keyframes scan { 0% { top: 0%; opacity: 0; } 50% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+.card-anim { animation: slideUp 0.6s ease-out forwards; }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
